@@ -1,23 +1,77 @@
-<div class="jumbotron">
-  <h1>'Allo, 'Allo!</h1>
-  <p class="lead">
-    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
-    Always a pleasure scaffolding your apps.
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
+<div class="row">
+    <div class="col-xs-12 text-center">
+        <h3>Fantoo's Rock-Paper-Scissors!</h3>  
+    </div>
 </div>
-
-<div class="row marketing">
-  <h4>HTML5 Boilerplate</h4>
-  <p>
-    HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.
-  </p>
-
-  <h4>Angular</h4>
-  <p>
-    AngularJS is a toolset for building the framework most suited to your application development.
-  </p>
-
-  <h4>Karma</h4>
-  <p>Spectacular Test Runner for JavaScript.</p>
+<div class="row">
+    <div class="col-xs-5">
+        <h5>Make your move</h5>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <div class="col-xs-10">
+                    <select name="humanMoves" id="humanMoves" class="form-control" ng-model="main.move"
+                        ng-options="move as move.move | uppercase for move in main.moves"></select>
+                </div>
+                <div class="col-xs-2">
+                    <button class="btn btn-info" ng-click="main.play()" 
+                    ng-disabled="main.isGameFinished" ng-bind="main.strings.ACTION_GO"></button>  
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-xs-4 col-xs-offset-2">
+        <h5>How many games do you want?</h5>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <select name="gameFormat" id="gameFormat" class="form-control" ng-model="main.format"
+                        ng-change="main.startNewGame()"
+                        ng-options="format as format.name | uppercase for format in main.formats"></select>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="jumbotron">
+    <div class="row text-center">
+        <div class="col-xs-4" ng-class="{'label label-success': main.result.moveResult.human}">
+            <h4>Human</h4>
+        </div>
+        <div class="col-xs-4">
+            <h5>Score</h5>
+        </div>
+        <div class="col-xs-4" ng-class="{'label label-success': main.result.moveResult.computer}">
+            <h4>Computer</h4>
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col-xs-4">
+            
+        </div>
+        <div class="col-xs-4">
+            <span ng-bind="main.result.human"></span>
+            <span> - </span>
+            <span ng-bind="main.result.computer"></span>
+        </div>
+        <div class="col-xs-4">
+            
+        </div>
+    </div>
+    <div class="row" ng-show="main.result && !main.result.moveResult.computer && !main.result.moveResult.human">
+        <div class="col-xs-12">
+            <span class="label label-warning" ng-bind="main.strings.COPY_TIE"></span>
+        </div>
+    </div>
+    <div class="row" ng-show="main.result.winner">
+        <div class="col-xs-12">
+            <h4>
+                <span ng-show="main.result.winner === 'computer'" class="label label-danger" 
+                    ng-bind="main.strings.VICTORY_COMPUTER"></span>
+                <span ng-show="main.result.winner === 'human'" class="label label-success" 
+                    ng-bind="main.strings.VICTORY_HUMAN"></span>
+            </h4>
+            <button class="btn btn-info" ng-click="main.startNewGame()"
+            ng-bind="main.strings.ACTION_PLAY_AGAIN"></button>
+        </div>
+    </div>
 </div>
